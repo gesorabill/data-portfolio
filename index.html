@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Turning Data into Decisions | Data Portfolio</title>
+  <meta name="description"
+    content="Portfolio of a Senior Data Professional specializing in Data Engineering, Analytics, BI, and Data Science.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            bgStart: 'var(--bg-start)',
+            bgEnd: 'var(--bg-end)',
+            surface: 'var(--surface)',
+            surfaceHover: 'var(--surface-hover)',
+            borderLine: 'var(--border)',
+            primary: 'var(--primary)',
+            secondary: 'var(--secondary)',
+            success: 'var(--success)',
+            warning: 'var(--warning)',
+            info: 'var(--info)',
+            textMain: 'var(--text-main)',
+            textMuted: 'var(--text-muted)'
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['Fira Code', 'monospace']
+          },
+          spacing: {
+            '1': '8px',
+            '2': '16px',
+            '3': '24px',
+            '4': '32px',
+            '5': '40px',
+            '6': '48px',
+            '8': '64px',
+            '10': '80px',
+            '12': '96px',
+            '16': '128px',
+            '20': '160px',
+          },
+          boxShadow: {
+            'glass': '0 8px 32px 0 var(--glow-primary)',
+            'card': '0 4px 24px -1px rgba(0,0,0,0.5)',
+          },
+          backgroundImage: {
+            'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body
+  class="bg-gradient-to-br from-bgStart to-bgEnd text-textMain font-sans antialiased overflow-x-hidden min-h-screen">
+
+  <!-- Background Canvas for Particles -->
+  <canvas id="bg-canvas" class="fixed inset-0 w-full h-full z-0 pointer-events-none opacity-40"></canvas>
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 w-full z-50 glass-nav transition-all duration-300 py-2 border-b border-borderLine">
+    <div class="max-w-7xl mx-auto px-4 flex justify-between items-center">
+      <a href="#"
+        class="text-2xl font-bold font-mono tracking-tighter hover:text-primary transition-colors flex items-center gap-1">
+        <i data-lucide="database" class="w-6 h-6 text-primary"></i> <span
+          class="bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">DATA.PRO</span>
+      </a>
+
+      <div class="hidden md:flex items-center gap-4">
+        <a href="#about" class="text-textMuted hover:text-textMain transition-colors text-sm font-medium">About</a>
+        <a href="#skills" class="text-textMuted hover:text-textMain transition-colors text-sm font-medium">Skills</a>
+        <a href="#projects"
+          class="text-textMuted hover:text-textMain transition-colors text-sm font-medium">Projects</a>
+        <a href="#contact" class="text-textMuted hover:text-textMain transition-colors text-sm font-medium">Contact</a>
+
+        <button id="command-palette-btn"
+          class="flex items-center gap-1 ml-2 px-2 py-1 rounded bg-surface border border-borderLine text-textMuted hover:text-textMain transition-all">
+          <i data-lucide="search" class="w-4 h-4"></i>
+          <span class="text-xs font-mono ml-1">cmd+k</span>
+        </button>
+
+        <button id="theme-toggle" class="p-1 rounded-full hover:bg-surface transition-colors">
+          <i data-lucide="sun" class="w-5 h-5 hidden dark:block text-warning"></i>
+          <i data-lucide="moon" class="w-5 h-5 block dark:hidden text-info"></i>
+        </button>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button class="md:hidden p-1 rounded-full text-textMain" id="mobile-menu-btn">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="relative z-10 flex flex-col items-center w-full">
+
+    <!-- Hero Section -->
+    <section id="hero" class="min-h-screen w-full flex flex-col justify-center items-center px-4 pt-20 relative">
+      <div class="max-w-4xl mx-auto text-center hero-content">
+        <div
+          class="inline-flex items-center gap-2 px-2 py-1 rounded-full bg-surface border border-borderLine text-textMuted text-xs font-mono mb-4 badge-animate hover:border-primary transition-colors cursor-default">
+          <span class="relative flex h-3 w-3">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-success opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-3 w-3 bg-success"></span>
+          </span>
+          System Status: Optimal. Processing live data stream.
+        </div>
+
+        <h1 class="text-5xl md:text-7xl lg:text-8xl font-black mb-3 leading-tight tracking-tight">
+          Turning <span
+            class="bg-clip-text text-transparent bg-gradient-to-r from-primary via-secondary to-success">Data</span>
+          into <span class="text-textMain">Decisions</span>
+        </h1>
+
+        <div class="text-xl md:text-3xl text-textMuted font-light mb-6 h-10 flex items-center justify-center">
+          <span>Senior&nbsp;</span>
+          <span id="typewriter" class="font-semibold text-primary font-mono border-r-2 border-primary pr-1"></span>
+        </div>
+
+        <p class="text-base md:text-lg text-textMuted max-w-2xl mx-auto mb-8 hero-desc">
+          Building scalable data pipelines, advanced analytics architectures, and intelligent models that drive
+          measurable business impact.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center hero-ctas">
+          <a href="#projects"
+            class="px-5 py-2 rounded-lg bg-primary text-bgEnd font-semibold hover:bg-opacity-90 transition-all flex items-center gap-2 hover:shadow-glass group">
+            <i data-lucide="layout-dashboard" class="w-5 h-5 group-hover:scale-110 transition-transform"></i>
+            View Projects
+          </a>
+          <a href="assets/Bill_Gesora_CV.pdf" download="Bill_Gesora_CV.pdf"
+            class="px-5 py-2 rounded-lg bg-surface border border-borderLine text-textMain font-semibold hover:bg-surfaceHover transition-all flex items-center gap-2 hover:border-textMuted group">
+            <i data-lucide="download" class="w-5 h-5 group-hover:-translate-y-1 transition-transform"></i>
+            Download CV
+          </a>
+        </div>
+      </div>
+
+      <!-- Fake Live Metrics & Terminal -->
+      <div
+        class="absolute bottom-10 left-0 w-full px-4 overflow-hidden mask-edges opacity-80 hover:opacity-100 transition-opacity flex flex-col items-center">
+        <!-- Animated Terminal Output -->
+        <div
+          class="w-full max-w-4xl text-left mb-2 font-mono text-[10px] sm:text-xs text-success/70 h-16 overflow-hidden relative"
+          id="hero-terminal">
+          <div class="absolute bottom-0 w-full flex flex-col justify-end terminal-lines space-y-1">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <div
+          class="flex gap-4 live-metrics-ticker font-mono text-xs text-textMuted whitespace-nowrap bg-surface/50 border border-borderLine py-1 px-4 rounded-full backdrop-blur-sm">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- About Me Section -->
+    <section id="about" class="w-full py-20 px-4 relative">
+      <div class="max-w-6xl mx-auto section-container">
+        <header class="mb-10 text-center md:text-left section-header">
+          <h2 class="text-sm font-mono text-info tracking-widest uppercase mb-1">01. Background</h2>
+          <h3
+            class="text-3xl md:text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-textMain to-textMuted inline-block">
+            The Story Behind the Data</h3>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+          <div class="about-text space-y-4 text-textMuted text-lg leading-relaxed">
+            <p>
+              I architect <strong class="text-textMain font-semibold">robust data ecosystems</strong> that transform raw
+              noise into strategic advantages. With over <span class="counter font-mono text-primary font-bold"
+                data-target="8">0</span> years of experience across finance, gaming, and insurance, I bridge the gap
+              between complex engineering and business intelligence.
+            </p>
+            <p>
+              My philosophy is simple: <em class="text-secondary">Data is only as good as the decisions it enables.</em>
+              Whether it's optimizing a legacy data warehouse, building event-driven streaming pipelines, or deploying
+              machine learning models to production, I focus on scalability, maintainability, and actionable insights.
+            </p>
+
+            <div class="grid grid-cols-3 gap-4 pt-4 mt-6 border-t border-borderLine">
+              <div
+                class="stat-card p-3 rounded-xl bg-surface border border-borderLine text-center hover:border-primary transition-colors cursor-default">
+                <div class="text-2xl font-black text-primary font-mono mb-1"><span class="counter"
+                    data-target="150">0</span>+</div>
+                <div class="text-xs text-textMuted uppercase tracking-wider">Pipelines Built</div>
+              </div>
+              <div
+                class="stat-card p-3 rounded-xl bg-surface border border-borderLine text-center hover:border-secondary transition-colors cursor-default">
+                <div class="text-2xl font-black text-secondary font-mono mb-1"><span class="counter"
+                    data-target="50">0</span>PB</div>
+                <div class="text-xs text-textMuted uppercase tracking-wider">Data Processed</div>
+              </div>
+              <div
+                class="stat-card p-3 rounded-xl bg-surface border border-borderLine text-center hover:border-success transition-colors cursor-default">
+                <div class="text-2xl font-black text-success font-mono mb-1"><span class="counter"
+                    data-target="99">0</span>.%</div>
+                <div class="text-xs text-textMuted uppercase tracking-wider">Uptime SLA</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="about-timeline relative py-4 h-full flex flex-col justify-between space-y-6">
+            <!-- Continuous vertical line -->
+            <div class="absolute left-[7px] top-4 bottom-4 w-[2px] bg-borderLine z-0"></div>
+
+            <!-- IDE Window for Timeline -->
+            <div
+              class="hidden lg:block w-full max-w-sm mb-6 bg-bgStart border border-borderLine rounded-xl overflow-hidden opacity-80 shadow-glass relative z-10">
+              <!-- IDE Header -->
+              <div class="h-6 bg-surface border-b border-borderLine flex items-center px-4 justify-between">
+                <div class="flex gap-2">
+                  <div class="w-2 h-2 rounded-full bg-red-500/50"></div>
+                  <div class="w-2 h-2 rounded-full bg-yellow-500/50"></div>
+                  <div class="w-2 h-2 rounded-full bg-green-500/50"></div>
+                </div>
+                <span class="text-[10px] font-mono text-textMuted flex items-center gap-1"><i data-lucide="file-code"
+                    class="w-3 h-3 text-primary"></i> career_history.py</span>
+              </div>
+              <!-- Code content -->
+              <div class="p-4 text-[10px] font-mono text-textMuted whitespace-pre leading-relaxed">
+                <span class="text-info">def</span> <span class="text-warning">execute_career_path</span>():
+                <span class="text-info">yield</span> DataRole(
+                title=<span class="text-secondary">"Senior Data Engineer"</span>,
+                company=<span class="text-secondary">"FinTech NeoBank"</span>
+                )
+                <span class="text-info">yield</span> DataRole(
+                title=<span class="text-secondary">"BI & Analytics Engineer"</span>,
+                company=<span class="text-secondary">"Global Insurance"</span>
+                )
+              </div>
+            </div>
+
+            <!-- Role 1 -->
+            <div class="timeline-item relative group z-10 flex items-start gap-4">
+              <div
+                class="w-4 h-4 shrink-0 rounded-full bg-bgStart border-2 border-primary group-hover:bg-primary transition-colors mt-1.5 relative z-10">
+              </div>
+              <div class="flex-1">
+                <h4
+                  class="text-xl font-bold text-textMain group-hover:text-primary transition-colors flex items-center gap-2">
+                  Senior Data Engineer <span
+                    class="px-2 py-0.5 rounded text-[10px] bg-primary/10 text-primary border border-primary/20 font-mono">def
+                    current():</span>
+                </h4>
+                <p class="text-sm text-textMuted font-mono mb-1">> FinTech NeoBank | 2021 - Present</p>
+                <p class="text-sm text-textMuted">Spearheaded migration to a Medallion Lakehouse architecture using
+                  Databricks and Spark, reducing processing cost by 40%.</p>
+                <div class="mt-2 flex gap-2">
+                  <span class="text-[10px] font-mono text-info bg-info/10 px-1.5 py-0.5 rounded">pyspark</span>
+                  <span class="text-[10px] font-mono text-warning bg-warning/10 px-1.5 py-0.5 rounded">databricks</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Role 2 -->
+            <div class="timeline-item relative group z-10 flex items-start gap-4">
+              <div
+                class="w-4 h-4 shrink-0 rounded-full bg-bgStart border-2 border-secondary group-hover:bg-secondary transition-colors mt-1.5 relative z-10">
+              </div>
+              <div class="flex-1">
+                <h4 class="text-xl font-bold text-textMain group-hover:text-secondary transition-colors">BI & Analytics
+                  Engineer</h4>
+                <p class="text-sm text-textMuted font-mono mb-1">> Global Insurance | 2018 - 2021</p>
+                <p class="text-sm text-textMuted">Developed dbt models and interactive Power BI dashboards for
+                  executive-level KPI tracking.</p>
+              </div>
+            </div>
+
+            <!-- Role 3 -->
+            <div class="timeline-item relative group z-10 flex items-start gap-4">
+              <div
+                class="w-4 h-4 shrink-0 rounded-full bg-bgStart border-2 border-warning group-hover:bg-warning transition-colors mt-1.5 relative z-10">
+              </div>
+              <div class="flex-1">
+                <h4 class="text-xl font-bold text-textMain group-hover:text-warning transition-colors">Data Analyst</h4>
+                <p class="text-sm text-textMuted font-mono mb-1">> E-commerce Startup | 2016 - 2018</p>
+                <p class="text-sm text-textMuted">Analyzed customer cohorts, engineered features for churn prediction,
+                  optimized SQL reporting queries.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills as Data Section -->
+    <section id="skills" class="w-full py-20 px-4 relative overflow-hidden">
+      <!-- Glow bubble -->
+      <div
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary rounded-full blur-[150px] opacity-10 pointer-events-none">
+      </div>
+
+      <div class="max-w-6xl mx-auto section-container relative z-10">
+        <header class="mb-10 text-center section-header">
+          <h2 class="text-sm font-mono text-info tracking-widest uppercase mb-1">02. Capabilities</h2>
+          <h3 class="text-3xl md:text-5xl font-bold text-textMain mb-4">Skill Matrix</h3>
+          <p class="text-textMuted max-w-2xl mx-auto">Visualizing my proficiency across the modern data stack.</p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+          <!-- Bar Chart for Core Skills -->
+          <div
+            class="glass-card p-6 rounded-2xl bg-surface border border-borderLine hover-lift relative overflow-hidden group">
+            <h4 class="text-lg font-semibold text-textMain mb-4 flex items-center gap-2">
+              <i data-lucide="bar-chart-2" class="text-primary w-5 h-5"></i> Core Technologies
+            </h4>
+            <div class="space-y-4">
+              <div class="skill-bar group cursor-help relative"
+                data-tooltip="Optimized complex joins, window functions, and partitioned tables handling billions of rows.">
+                <div class="flex justify-between text-sm mb-1 text-textMuted"><span>SQL</span> <span
+                    class="font-mono">95%</span></div>
+                <div class="w-full bg-bgStart rounded-full h-2 overflow-hidden">
+                  <div class="bg-gradient-to-r from-primary to-info h-2 rounded-full w-0 skill-progress"
+                    data-width="95%"></div>
+                </div>
+              </div>
+              <div class="skill-bar group cursor-help relative"
+                data-tooltip="Built scalable ETL scripts, APIs, and trained ML models using pandas, scikit-learn, and FastAPI.">
+                <div class="flex justify-between text-sm mb-1 text-textMuted"><span>Python</span> <span
+                    class="font-mono">90%</span></div>
+                <div class="w-full bg-bgStart rounded-full h-2 overflow-hidden">
+                  <div class="bg-gradient-to-r from-primary to-info h-2 rounded-full w-0 skill-progress"
+                    data-width="90%"></div>
+                </div>
+              </div>
+              <div class="skill-bar group cursor-help relative"
+                data-tooltip="Designed semantic layers, DAX measures, and highly interactive executive dashboards.">
+                <div class="flex justify-between text-sm mb-1 text-textMuted"><span>Power BI</span> <span
+                    class="font-mono">85%</span></div>
+                <div class="w-full bg-bgStart rounded-full h-2 overflow-hidden">
+                  <div class="bg-gradient-to-r from-primary to-info h-2 rounded-full w-0 skill-progress"
+                    data-width="85%"></div>
+                </div>
+              </div>
+              <div class="skill-bar group cursor-help relative"
+                data-tooltip="Implemented idempotent data transformations, testing, and CI/CD for analytical data.">
+                <div class="flex justify-between text-sm mb-1 text-textMuted"><span>dbt</span> <span
+                    class="font-mono">80%</span></div>
+                <div class="w-full bg-bgStart rounded-full h-2 overflow-hidden">
+                  <div class="bg-gradient-to-r from-primary to-info h-2 rounded-full w-0 skill-progress"
+                    data-width="80%"></div>
+                </div>
+              </div>
+            </div>
+            <!-- Custom Tooltip Div for absolute positioning over everything -->
+          </div>
+
+          <!-- Radar Chart Placeholder (Rendered with Canvas/JS) -->
+          <div
+            class="glass-card p-6 rounded-2xl bg-surface border border-borderLine hover-lift flex flex-col relative overflow-hidden">
+            <h4 class="text-lg font-semibold text-textMain mb-4 flex items-center gap-2">
+              <i data-lucide="target" class="text-secondary w-5 h-5"></i> Domain Expertise
+            </h4>
+            <div class="flex-grow flex items-center justify-center relative min-h-[250px]">
+              <canvas id="radarChart" class="w-full max-w-[300px] h-auto"></canvas>
+            </div>
+            <!-- Absolute overlay for legend -->
+            <div class="absolute bottom-4 right-4 flex gap-3 text-[10px] font-mono text-textMuted">
+              <span class="flex items-center gap-1"><span class="w-2 h-2 bg-secondary rounded-full"></span>
+                Expertise</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Tech Stack Logos -->
+        <div class="mt-12 text-center">
+          <h4 class="text-sm text-textMuted font-medium mb-6">Platforms & Ecosystems</h4>
+          <div class="flex flex-wrap justify-center gap-4 lg:gap-8 stack-logos">
+            <div
+              class="px-4 py-2 rounded-xl bg-surface border border-borderLine hover:border-info hover:bg-surfaceHover transition-all flex items-center gap-2 group cursor-pointer">
+              <i data-lucide="cloud" class="w-5 h-5 text-gray-400 group-hover:text-info transition-colors"></i>
+              <span class="font-medium group-hover:text-textMain transition-colors">Azure Ecosystem</span>
+            </div>
+            <div
+              class="px-4 py-2 rounded-xl bg-surface border border-borderLine hover:border-success hover:bg-surfaceHover transition-all flex items-center gap-2 group cursor-pointer">
+              <svg class="w-5 h-5 text-gray-400 group-hover:text-success transition-colors" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path>
+                <line x1="16" y1="8" x2="2" y2="22"></line>
+                <line x1="17.5" y1="15" x2="9" y2="15"></line>
+              </svg>
+              <span class="font-medium group-hover:text-textMain transition-colors">Microsoft Fabric</span>
+            </div>
+            <div
+              class="px-4 py-2 rounded-xl bg-surface border border-borderLine hover:border-warning hover:bg-surfaceHover transition-all flex items-center gap-2 group cursor-pointer">
+              <i data-lucide="layers" class="w-5 h-5 text-gray-400 group-hover:text-warning transition-colors"></i>
+              <span class="font-medium group-hover:text-textMain transition-colors">Databricks / Spark</span>
+            </div>
+            <div
+              class="px-4 py-2 rounded-xl bg-surface border border-borderLine hover:border-primary hover:bg-surfaceHover transition-all flex items-center gap-2 group cursor-pointer">
+              <i data-lucide="wind" class="w-5 h-5 text-gray-400 group-hover:text-primary transition-colors"></i>
+              <span class="font-medium group-hover:text-textMain transition-colors">Apache Airflow</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="w-full py-20 px-4 relative bg-surface/30">
+      <div class="max-w-6xl mx-auto section-container">
+        <header class="mb-12 text-center section-header">
+          <h2 class="text-sm font-mono text-info tracking-widest uppercase mb-1">03. Portfolio</h2>
+          <h3 class="text-3xl md:text-5xl font-bold text-textMain mb-4">Featured Work</h3>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <!-- Project 1: IDE Style -->
+          <div
+            class="project-card group relative bg-bgStart border border-borderLine rounded-2xl overflow-hidden hover:border-primary transition-all duration-500 cursor-pointer flex flex-col h-full transform translate-y-8 opacity-0 shadow-lg">
+            <!-- Fake Window Controls -->
+            <div class="h-8 bg-surface border-b border-borderLine flex items-center px-4 justify-between">
+              <div class="flex gap-2">
+                <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+              </div>
+              <div class="text-[10px] font-mono text-textMuted flex items-center gap-1">
+                <i data-lucide="file-code" class="w-3 h-3 text-primary"></i> stream_job.py
+              </div>
+            </div>
+
+            <div class="relative h-40 w-full bg-[#0d1117] overflow-hidden p-4 font-mono text-xs">
+              <div class="absolute inset-0 bg-gradient-to-b from-transparent to-bgStart z-10 pointer-events-none"></div>
+              <!-- Animated typing code -->
+              <pre><code class="text-textMuted">from pyspark.sql import SparkSession
+from pyspark.sql.functions import from_json, col
+
+<span class="text-info">def</span> <span class="text-warning">detect_fraud</span>(df):
+    <span class="text-success"># Process streaming telemetry in real-time</span>
+    parsed = df.selectExpr(<span class="text-secondary">"CAST(value AS STRING)"</span>) \
+               .select(from_json(<span class="text-secondary">"value"</span>, schema).alias(<span class="text-secondary">"data"</span>))
+    
+    return parsed.filter(col(<span class="text-secondary">"data.risk_score"</span>) > <span class="text-primary">0.95</span>)
+
+query = detect_fraud(kafka_stream) \
+    .writeStream \
+    .format(<span class="text-secondary">"delta"</span>) \
+    .outputMode(<span class="text-secondary">"append"</span>) \
+    .start()</code></pre>
+            </div>
+
+            <div class="p-6 flex flex-col flex-grow bg-surface/30 border-t border-borderLine">
+              <div
+                class="inline-block px-2 py-1 bg-primary/10 border border-primary/20 rounded text-[10px] font-mono text-primary uppercase tracking-wider mb-3 w-fit">
+                Banking & Finance</div>
+              <h4 class="text-xl font-bold text-textMain mb-2 group-hover:text-primary transition-colors">Streaming
+                Fraud Detection</h4>
+              <p class="text-sm text-textMuted mb-4 flex-grow">Designed and built a real-time event streaming
+                architecture using Azure Event Hubs, Stream Analytics, and highly optimized Databricks structured
+                streaming jobs.</p>
+
+              <div class="flex items-center justify-between mt-auto pt-4 border-t border-borderLine/50">
+                <div class="flex gap-2">
+                  <span
+                    class="p-1 rounded bg-bgStart text-textMuted group-hover:text-info transition-colors border border-borderLine"
+                    title="Azure"><i data-lucide="cloud" class="w-4 h-4"></i></span>
+                  <span
+                    class="p-1 rounded bg-bgStart text-textMuted group-hover:text-warning transition-colors border border-borderLine"
+                    title="Spark"><i data-lucide="zap" class="w-4 h-4"></i></span>
+                  <span
+                    class="p-1 rounded bg-bgStart text-textMuted group-hover:text-secondary transition-colors border border-borderLine"
+                    title="Python"><i data-lucide="file-code-2" class="w-4 h-4"></i></span>
+                </div>
+                <div class="text-xs font-mono text-success flex items-center gap-1 bg-success/10 px-2 py-1 rounded">
+                  <i data-lucide="activity" class="w-3 h-3"></i> 400ms latency
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 2: Terminal Style -->
+          <div
+            class="project-card group relative bg-bgStart border border-borderLine rounded-2xl overflow-hidden hover:border-success transition-all duration-500 cursor-pointer flex flex-col h-full transform translate-y-8 opacity-0 shadow-lg"
+            style="transition-delay: 100ms;">
+            <div class="h-8 bg-surface border-b border-borderLine flex items-center px-4 justify-between">
+              <div class="flex gap-2">
+                <div class="w-3 h-3 rounded-full bg-red-500/50"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500/50"></div>
+                <div class="w-3 h-3 rounded-full bg-green-500/50"></div>
+              </div>
+              <div class="text-[10px] font-mono text-textMuted flex items-center gap-1">
+                <i data-lucide="terminal" class="w-3 h-3 text-success"></i> bash - dbt run
+              </div>
+            </div>
+
+            <div class="relative h-40 w-full bg-[#0a0f0d] overflow-hidden p-4 font-mono text-[11px] leading-relaxed">
+              <div class="absolute inset-0 bg-gradient-to-b from-transparent to-bgStart z-10 pointer-events-none"></div>
+              <div class="text-success mb-1">$ dbt build --select core_semantic_layer</div>
+              <div class="text-textMuted">Running with dbt=1.7.0</div>
+              <div class="text-textMuted">Found 45 models, 120 tests, 0 snapshots...</div>
+              <br>
+              <div class="text-info">15:02:11 | Concurrency: 8 threads (target='prod')</div>
+              <div class="text-textMuted">15:02:12 | 1 of 45 START table model core.dim_customers [RUN]</div>
+              <div class="text-success">15:02:14 | 1 of 45 OK created table model core.dim_customers [SUCCESS 1 in
+                2.14s]</div>
+              <div class="text-textMuted">15:02:14 | 2 of 45 START view model core.fct_orders [RUN]</div>
+              <div class="text-success mt-2">Finished running 45 models in 45.21s.</div>
+            </div>
+
+            <div class="p-6 flex flex-col flex-grow bg-surface/30 border-t border-borderLine">
+              <div
+                class="inline-block px-2 py-1 bg-success/10 border border-success/20 rounded text-[10px] font-mono text-success uppercase tracking-wider mb-3 w-fit">
+                E-Commerce & Retail</div>
+              <h4 class="text-xl font-bold text-textMain mb-2 group-hover:text-success transition-colors">Semantic Layer
+                Architecture</h4>
+              <p class="text-sm text-textMuted mb-4 flex-grow">Migrated fragmented SQL views into a centralized dbt
+                project adhering to Kimball methodology, with aggressive data testing and CI/CD pipelines.</p>
+
+              <div class="flex items-center justify-between mt-auto pt-4 border-t border-borderLine/50">
+                <div class="flex gap-2">
+                  <span class="p-1 rounded bg-bgStart text-textMuted transition-colors border border-borderLine"
+                    title="dbt"><i data-lucide="database" class="w-4 h-4"></i></span>
+                  <span class="p-1 rounded bg-bgStart text-textMuted transition-colors border border-borderLine"
+                    title="Snowflake"><i data-lucide="snowflake" class="w-4 h-4"></i></span>
+                  <span class="p-1 rounded bg-bgStart text-textMuted transition-colors border border-borderLine"
+                    title="GitHub Actions"><i data-lucide="git-pull-request" class="w-4 h-4"></i></span>
+                </div>
+                <div class="text-xs font-mono text-success flex items-center gap-1 bg-success/10 px-2 py-1 rounded">
+                  <i data-lucide="check-circle" class="w-3 h-3"></i> 100% Data Tested
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 3: Terminal Style (DAX) -->
+          <div
+            class="project-card group relative bg-bgStart border border-borderLine rounded-2xl overflow-hidden hover:border-secondary transition-all duration-500 cursor-pointer flex flex-col h-full transform translate-y-8 opacity-0 shadow-lg">
+            <!-- Fake Window Controls -->
+            <div class="h-8 bg-surface border-b border-borderLine flex items-center px-4 justify-between">
+              <div class="flex gap-2">
+                <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+              </div>
+              <div class="text-[10px] font-mono text-textMuted flex items-center gap-1">
+                <i data-lucide="function-square" class="w-3 h-3 text-secondary"></i> core_measures.dax
+              </div>
+            </div>
+
+            <div class="relative h-40 w-full bg-[#1e1e1e] overflow-hidden p-4 font-mono text-xs">
+              <div class="absolute inset-0 bg-gradient-to-b from-transparent to-bgStart z-10 pointer-events-none"></div>
+              <!-- Animated typing code -->
+              <pre><code class="text-textMuted"><span class="text-secondary font-bold">Total LTV</span> = 
+<span class="text-primary">CALCULATE</span>(
+    [Total NGR],
+    <span class="text-primary">FILTER</span>(
+        <span class="text-warning">ALL</span>('Player Activity'),
+        'Player Activity'[Cohorts] <= <span class="text-info">MAX</span>('DimDate'[Date])
+    )
+)
+
+<span class="text-success">// Running on premium Gen2 capacity...</span>
+<span class="text-success">// Evaluation time: 14ms (DirectLake)</span></code></pre>
+            </div>
+
+            <div class="p-6 flex flex-col flex-grow bg-surface/30 border-t border-borderLine">
+              <div
+                class="inline-block px-2 py-1 bg-secondary/10 border border-secondary/20 rounded text-[10px] font-mono text-secondary uppercase tracking-wider mb-3 w-fit">
+                Gaming & Betting</div>
+              <h4 class="text-xl font-bold text-textMain mb-2 group-hover:text-secondary transition-colors">Executive
+                KPI Dashboard Suite</h4>
+              <p class="text-sm text-textMuted mb-4 flex-grow">Developed an enterprise Power BI application synthesizing
+                data from 4 discrete legacy systems to provide a unified daily view of NGR, Active Players, and LTV.</p>
+
+              <div class="flex items-center justify-between mt-auto pt-4 border-t border-borderLine/50">
+                <div class="flex gap-2">
+                  <span class="p-1 rounded bg-bgStart text-textMuted transition-colors border border-borderLine"
+                    title="Power BI"><i data-lucide="pie-chart" class="w-4 h-4"></i></span>
+                  <span class="p-1 rounded bg-bgStart text-textMuted transition-colors border border-borderLine"
+                    title="DAX"><i data-lucide="function-square" class="w-4 h-4"></i></span>
+                </div>
+                <div class="text-xs font-mono text-success flex items-center gap-1 bg-success/10 px-2 py-1 rounded">
+                  <i data-lucide="clock" class="w-3 h-3"></i> Automated Daily
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 4: IDE Style (Python/ML) -->
+          <div
+            class="project-card group relative bg-bgStart border border-borderLine rounded-2xl overflow-hidden hover:border-warning transition-all duration-500 cursor-pointer flex flex-col h-full transform translate-y-8 opacity-0 shadow-lg"
+            style="transition-delay: 100ms;">
+            <!-- Fake Window Controls -->
+            <div class="h-8 bg-surface border-b border-borderLine flex items-center px-4 justify-between">
+              <div class="flex gap-2">
+                <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+              </div>
+              <div class="text-[10px] font-mono text-textMuted flex items-center gap-1">
+                <i data-lucide="brain-circuit" class="w-3 h-3 text-warning"></i> kmeans_clustering.py
+              </div>
+            </div>
+
+            <div class="relative h-40 w-full bg-[#0d1117] overflow-hidden p-4 font-mono text-xs">
+              <div class="absolute inset-0 bg-gradient-to-b from-transparent to-bgStart z-10 pointer-events-none"></div>
+              <pre><code class="text-textMuted">from sklearn.cluster import KMeans
+from sklearn.preprocessing import StandardScaler
+
+<span class="text-success"># Scale behavioral features</span>
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(user_features)
+
+<span class="text-success"># Fit KMeans for K=5 Cohorts</span>
+kmeans = KMeans(n_clusters=<span class="text-primary">5</span>, random_state=<span class="text-primary">42</span>)
+segments = kmeans.fit_predict(X_scaled)
+
+<span class="text-success"># Propagate back to CRM sink</span>
+df['segment_id'] = segments
+push_to_crm_api(df)</code></pre>
+            </div>
+
+            <div class="p-6 flex flex-col flex-grow bg-surface/30 border-t border-borderLine">
+              <div
+                class="inline-block px-2 py-1 bg-warning/10 border border-warning/20 rounded text-[10px] font-mono text-warning uppercase tracking-wider mb-3 w-fit">
+                Marketing Analytics</div>
+              <h4 class="text-xl font-bold text-textMain mb-2 group-hover:text-warning transition-colors">Customer
+                Segmentation Engine</h4>
+              <p class="text-sm text-textMuted mb-4 flex-grow">Built an automated clustering pipeline using Scikit-Learn
+                to segment users based on behavioral data (GA4) integrated with CRM transactional history.</p>
+
+              <div class="flex items-center justify-between mt-auto pt-4 border-t border-borderLine/50">
+                <div class="flex gap-2">
+                  <span class="p-1 rounded bg-bgStart text-textMuted transition-colors border border-borderLine"
+                    title="Python / ML"><i data-lucide="brain-circuit" class="w-4 h-4"></i></span>
+                  <span class="p-1 rounded bg-bgStart text-textMuted transition-colors border border-borderLine"
+                    title="SQL"><i data-lucide="database" class="w-4 h-4"></i></span>
+                </div>
+                <div class="text-xs font-mono text-success flex items-center gap-1 bg-success/10 px-2 py-1 rounded">
+                  <i data-lucide="trending-up" class="w-3 h-3"></i> +15% Conversions
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-10 text-center">
+          <button
+            class="px-5 py-2 rounded-lg bg-surface border border-borderLine text-textMain font-medium hover:bg-surfaceHover transition-all inline-flex items-center gap-2 group">
+            <i data-lucide="github" class="w-4 h-4 group-hover:text-primary"></i> View GitHub Repository
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Architecture Diagram Section -->
+    <section id="architecture" class="w-full py-20 px-4 relative overflow-hidden">
+      <div class="max-w-6xl mx-auto section-container">
+        <header class="mb-12 text-center section-header">
+          <h2 class="text-sm font-mono text-info tracking-widest uppercase mb-1">04. Systems Thinking</h2>
+          <h3 class="text-3xl md:text-5xl font-bold text-textMain mb-4">Modern Data Architecture</h3>
+          <p class="text-textMuted max-w-xl mx-auto">Hover over the components to see how data flows from source to
+            insight in a typical Medallion Lakehouse pattern.</p>
+        </header>
+
+        <div
+          class="relative w-full max-w-4xl mx-auto bg-surface/50 border border-borderLine rounded-2xl p-8 overflow-hidden architecture-diagram">
+          <!-- Data Flow Animated Path (Canvas overlay) -->
+          <canvas id="arch-canvas" class="absolute inset-0 pointer-events-none z-0"></canvas>
+
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-6 relative z-10 h-full">
+            <!-- Column 1: Sources -->
+            <div class="flex flex-col gap-4 justify-center arch-col">
+              <div class="text-xs uppercase font-mono text-center text-textMuted mb-2 tracking-wider">Sources</div>
+              <div
+                class="arch-node bg-surface border border-borderLine p-3 rounded-lg flex items-center gap-3 hover:border-textMain transition-colors cursor-default"
+                data-node="db">
+                <i data-lucide="database" class="w-5 h-5 text-gray-400"></i>
+                <span class="text-sm font-medium">PostgreSQL</span>
+              </div>
+              <div
+                class="arch-node bg-surface border border-borderLine p-3 rounded-lg flex items-center gap-3 hover:border-textMain transition-colors cursor-default"
+                data-node="api">
+                <i data-lucide="webhook" class="w-5 h-5 text-gray-400"></i>
+                <span class="text-sm font-medium">REST APIs</span>
+              </div>
+              <div
+                class="arch-node bg-surface border border-borderLine p-3 rounded-lg flex items-center gap-3 hover:border-textMain transition-colors cursor-default"
+                data-node="stream">
+                <i data-lucide="activity" class="w-5 h-5 text-gray-400"></i>
+                <span class="text-sm font-medium">Event Hubs</span>
+              </div>
+            </div>
+
+            <!-- Column 2: Ingestion & Bronze -->
+            <div class="flex flex-col gap-4 justify-center arch-col">
+              <div class="text-xs uppercase font-mono text-center text-warning mb-2 tracking-wider">Bronze (Raw)</div>
+              <div
+                class="arch-node bg-surface border-l-4 border-l-warning p-3 rounded-lg flex flex-col items-center justify-center p-6 hover:shadow-[0_0_15px_rgba(251,191,36,0.3)] transition-all cursor-crosshair group"
+                data-node="bronze">
+                <i data-lucide="box" class="w-8 h-8 text-warning mb-2 group-hover:scale-110 transition-transform"></i>
+                <span class="text-sm font-bold text-center">Data Lake<br><span
+                    class="text-[10px] font-mono font-normal">Append Only</span></span>
+              </div>
+            </div>
+
+            <!-- Column 3: Processing & Silver/Gold -->
+            <div class="flex flex-col gap-4 justify-center arch-col">
+              <div class="text-xs uppercase font-mono text-center text-primary mb-2 tracking-wider">Transformation</div>
+              <div
+                class="arch-node bg-surface border-l-4 border-l-success p-3 rounded-lg flex flex-col items-center justify-center p-4 hover:shadow-[0_0_15px_rgba(52,211,153,0.3)] transition-all cursor-crosshair group"
+                data-node="silver">
+                <i data-lucide="filter"
+                  class="w-6 h-6 text-success mb-2 group-hover:rotate-12 transition-transform"></i>
+                <span class="text-sm font-bold text-center">Silver<br><span
+                    class="text-[10px] font-mono font-normal">Cleaned & Conformed</span></span>
+              </div>
+              <div class="h-8 border-l-2 border-dashed border-borderLine mx-auto"></div>
+              <div
+                class="arch-node bg-surface border-l-4 border-l-primary p-3 rounded-lg flex flex-col items-center justify-center p-4 hover:shadow-[0_0_15px_rgba(56,189,248,0.3)] transition-all cursor-crosshair group"
+                data-node="gold">
+                <i data-lucide="star" class="w-6 h-6 text-primary mb-2 group-hover:rotate-12 transition-transform"></i>
+                <span class="text-sm font-bold text-center">Gold<br><span
+                    class="text-[10px] font-mono font-normal">Business Aggregates</span></span>
+              </div>
+            </div>
+
+            <!-- Column 4: Consumption -->
+            <div class="flex flex-col gap-4 justify-center arch-col">
+              <div class="text-xs uppercase font-mono text-center text-secondary mb-2 tracking-wider">Serving / BI</div>
+              <div
+                class="arch-node bg-surface border border-borderLine p-3 rounded-lg flex items-center gap-3 hover:border-secondary transition-colors cursor-default"
+                data-node="bi">
+                <i data-lucide="bar-chart" class="w-5 h-5 text-secondary"></i>
+                <span class="text-sm font-medium">Power BI</span>
+              </div>
+              <div
+                class="arch-node bg-surface border border-borderLine p-3 rounded-lg flex items-center gap-3 hover:border-secondary transition-colors cursor-default"
+                data-node="ml">
+                <i data-lucide="brain" class="w-5 h-5 text-secondary"></i>
+                <span class="text-sm font-medium">ML Models</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="absolute bottom-4 left-0 w-full text-center pointer-events-none">
+            <p id="arch-description"
+              class="text-sm font-mono text-textMuted h-6 transition-opacity duration-300 opacity-50">Interactive: Hover
+              over nodes to trace data flow.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials / Impact Section -->
+    <section id="impact" class="w-full py-20 px-4 relative bg-bgEnd border-t border-b border-borderLine">
+      <div class="max-w-6xl mx-auto section-container">
+        <header class="mb-16 text-center section-header">
+          <h2 class="text-sm font-mono text-info tracking-widest uppercase mb-1">05. Value Delivered</h2>
+          <h3 class="text-3xl md:text-5xl font-bold text-textMain">Business Impact</h3>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div
+            class="impact-card p-6 bg-surface border border-borderLine rounded-xl relative hover:-translate-y-2 transition-transform duration-300">
+            <div
+              class="absolute -top-4 -left-4 w-8 h-8 bg-bgStart border border-borderLine rounded-full flex items-center justify-center text-primary">
+              <i data-lucide="quote" class="w-4 h-4"></i>
+            </div>
+            <p class="text-textMuted text-sm italic mb-6 leading-relaxed">
+              "Redesigned our entire overnight batch processing window. What used to take 8 hours and constantly timeout
+              now runs stably in under 45 minutes. Incredible engineering."
+            </p>
+            <div class="flex items-center gap-3 border-t border-borderLine pt-4">
+              <div
+                class="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-info flex items-center justify-center font-bold text-xs">
+                CTO</div>
+              <div>
+                <div class="text-sm font-bold text-textMain">FinTech Startup</div>
+                <div class="text-[10px] text-textMuted uppercase tracking-wider font-mono">Performance Optimization
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="impact-card p-6 bg-surface border border-borderLine rounded-xl relative hover:-translate-y-2 transition-transform duration-300">
+            <div
+              class="absolute -top-4 -left-4 w-8 h-8 bg-bgStart border border-borderLine rounded-full flex items-center justify-center text-success">
+              <i data-lucide="quote" class="w-4 h-4"></i>
+            </div>
+            <p class="text-textMuted text-sm italic mb-6 leading-relaxed">
+              "The semantic layer built on dbt unified our reporting. For the first time, Finance and Marketing actually
+              agree on what 'Active Customer' and 'Revenue' means."
+            </p>
+            <div class="flex items-center gap-3 border-t border-borderLine pt-4">
+              <div
+                class="w-8 h-8 rounded-full bg-gradient-to-br from-success to-secondary flex items-center justify-center font-bold text-xs">
+                VP</div>
+              <div>
+                <div class="text-sm font-bold text-textMain">Global Retailer</div>
+                <div class="text-[10px] text-textMuted uppercase tracking-wider font-mono">Data Governance</div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="impact-card p-6 bg-surface border border-borderLine rounded-xl relative hover:-translate-y-2 transition-transform duration-300">
+            <div
+              class="absolute -top-4 -left-4 w-8 h-8 bg-bgStart border border-borderLine rounded-full flex items-center justify-center text-warning">
+              <i data-lucide="quote" class="w-4 h-4"></i>
+            </div>
+            <p class="text-textMuted text-sm italic mb-6 leading-relaxed">
+              "Replaced a brittle web of legacy SSIS packages with a modern Lakehouse architecture. TCO dropped by 30%
+              and analyst productivity skyrocketed."
+            </p>
+            <div class="flex items-center gap-3 border-t border-borderLine pt-4">
+              <div
+                class="w-8 h-8 rounded-full bg-gradient-to-br from-warning to-primary flex items-center justify-center text-bgEnd font-bold text-xs">
+                Lead</div>
+              <div>
+                <div class="text-sm font-bold text-textMain">Insurance Co.</div>
+                <div class="text-[10px] text-textMuted uppercase tracking-wider font-mono">Migration Strategy</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact & Footer -->
+    <section id="contact" class="w-full py-20 px-4 relative flex flex-col items-center">
+      <div class="max-w-3xl mx-auto w-full text-center">
+        <h2 class="text-4xl md:text-6xl font-black mb-6">Let's build something with <span
+            class="bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">Data.</span></h2>
+        <p class="text-textMuted mb-10 max-w-xl mx-auto">Currently open for new opportunities. Whether you have a
+          massive data migration, a struggling BI environment, or just want to chat about the modern data stack.</p>
+
+        <div class="relative w-full max-w-xl mx-auto mt-12 z-20">
+          <!-- Animated Android/Bot Floting Layer -->
+          <div id="bot-container"
+            class="absolute -top-6 left-1/2 -translate-x-1/2 flex items-center justify-center gap-3 bg-bgStart border border-borderLine rounded-full px-6 py-2 opacity-90 transition-all duration-500 z-20 shadow-glass">
+            <i data-lucide="bot" id="bot-icon" class="w-7 h-7 text-primary transition-all duration-300 ease-in-out"></i>
+            <span id="bot-text"
+              class="text-[10px] font-mono font-bold text-primary tracking-wider uppercase">Standby...</span>
+          </div>
+
+          <form action="https://formsubmit.co/gesorabill@gmail.com" method="POST"
+            class="bg-surface border border-borderLine rounded-2xl p-6 md:p-8 text-left space-y-4 w-full relative z-10 overflow-hidden shadow-card hover:shadow-glass transition-shadow duration-300">
+            <div
+              class="absolute inset-0 bg-gradient-to-r from-primary/5 to-secondary/5 opacity-0 hover:opacity-100 transition-opacity -z-10 pointer-events-none">
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 relative z-10">
+              <div class="space-y-1">
+                <label class="text-xs font-mono text-textMuted">Name</label>
+                <input type="text" name="name" required
+                  class="w-full bg-bgStart border border-borderLine rounded-lg px-3 py-2 text-sm text-textMain focus:outline-none focus:border-primary transition-colors"
+                  placeholder="John Doe">
+              </div>
+              <div class="space-y-1">
+                <label class="text-xs font-mono text-textMuted">Email</label>
+                <input type="email" name="email" required
+                  class="w-full bg-bgStart border border-borderLine rounded-lg px-3 py-2 text-sm text-textMain focus:outline-none focus:border-primary transition-colors hover:border-textMuted"
+                  placeholder="john.doe@example.com">
+              </div>
+            </div>
+            <div class="space-y-1 relative z-10 w-full sm:w-4/5">
+              <label class="text-xs font-mono text-textMuted">Message</label>
+              <textarea name="message" required
+                class="w-full bg-bgStart border border-borderLine rounded-lg px-3 py-2 text-sm text-textMain focus:outline-none focus:border-primary transition-colors h-24 resize-none"
+                placeholder="How can I help you?"></textarea>
+            </div>
+
+            <input type="hidden" name="_subject" value="New Submision from Data Portfolio!">
+            <input type="hidden" name="_captcha" value="false">
+
+            <button type="submit"
+              class="w-full py-3 rounded-lg bg-primary text-bgEnd font-bold hover:bg-opacity-90 transition-all flex items-center justify-center gap-2 hover:shadow-glass group/btn mt-2 relative z-10">
+              Initialize Connection <i data-lucide="send"
+                class="w-4 h-4 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div
+        class="mt-20 w-full max-w-6xl border-t border-borderLine pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-textMuted">
+        <p>&copy; 2026 Data Professional Portfolio. Built with vanilla JS & GSAP.</p>
+        <div class="flex gap-4">
+          <a href="#" class="hover:text-primary transition-colors"><i data-lucide="github" class="w-5 h-5"></i></a>
+          <a href="https://www.linkedin.com/in/bill-g-186752120" target="_blank"
+            class="hover:text-primary transition-colors"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+          <a href="#" class="hover:text-primary transition-colors"><i data-lucide="twitter" class="w-5 h-5"></i></a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Command Palette Modal (Hidden by default) -->
+  <div id="command-palette"
+    class="fixed inset-0 z-[100] bg-black/60 backdrop-blur-sm hidden flex-col items-center pt-[15vh] px-4 opacity-0 transition-opacity">
+    <div
+      class="bg-surface border border-borderLine w-full max-w-xl rounded-xl shadow-2xl overflow-hidden shadow-glass transform scale-95 transition-transform"
+      id="command-palette-content">
+      <div class="p-3 border-b border-borderLine flex items-center gap-2">
+        <i data-lucide="search" class="w-5 h-5 text-textMuted"></i>
+        <input type="text"
+          class="flex-grow bg-transparent border-none text-textMain focus:outline-none text-lg font-light"
+          placeholder="Type a command or search..." autofocus>
+        <button id="close-palette"
+          class="px-2 py-1 text-xs font-mono bg-bgStart rounded border border-borderLine text-textMuted hover:text-textMain">ESC</button>
+      </div>
+      <div class="p-2 max-h-[60vh] overflow-y-auto">
+        <div class="text-xs font-mono text-textMuted px-2 py-1 mb-1">Navigation</div>
+        <a href="#hero"
+          class="cmd-item block px-3 py-2 rounded-lg hover:bg-surfaceHover text-textMain flex items-center gap-2"><i
+            data-lucide="home" class="w-4 h-4 text-textMuted"></i> Home</a>
+        <a href="#about"
+          class="cmd-item block px-3 py-2 rounded-lg hover:bg-surfaceHover text-textMain flex items-center gap-2"><i
+            data-lucide="user" class="w-4 h-4 text-textMuted"></i> About</a>
+        <a href="#skills"
+          class="cmd-item block px-3 py-2 rounded-lg hover:bg-surfaceHover text-textMain flex items-center gap-2"><i
+            data-lucide="bar-chart-2" class="w-4 h-4 text-textMuted"></i> Skills Matrix</a>
+        <a href="#projects"
+          class="cmd-item block px-3 py-2 rounded-lg hover:bg-surfaceHover text-textMain flex items-center gap-2"><i
+            data-lucide="folder" class="w-4 h-4 text-textMuted"></i> Projects</a>
+
+        <div class="text-xs font-mono text-textMuted px-2 py-1 mt-4 mb-1">Actions</div>
+        <button id="cmd-theme-toggle"
+          class="cmd-item w-full text-left px-3 py-2 rounded-lg hover:bg-surfaceHover text-textMain flex items-center gap-2"><i
+            data-lucide="sun-moon" class="w-4 h-4 text-textMuted"></i> Toggle Theme</button>
+        <button
+          class="cmd-item w-full text-left px-3 py-2 rounded-lg hover:bg-surfaceHover text-textMain flex items-center gap-2"
+          onclick="window.location.href='mailto:gesorabill@gmail.com'"><i data-lucide="mail"
+            class="w-4 h-4 text-textMuted"></i> Contact
+          Me</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Custom Context Tooltip -->
+  <div id="custom-tooltip"
+    class="fixed bg-bgStart border border-borderLine text-textMain text-xs p-2 rounded shadow-card pointer-events-none opacity-0 z-[100] max-w-xs transition-opacity duration-200">
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="main.js"></script>
+</body>
+
+</html>
