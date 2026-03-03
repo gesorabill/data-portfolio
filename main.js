@@ -487,11 +487,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const radius = Math.min(cw, ch) / 2 - 30; // padding
 
         const data = [
-            { label: 'Data Model', val: 0.9 },
-            { label: 'Pipelines', val: 0.85 },
-            { label: 'Cloud Inf', val: 0.7 },
-            { label: 'Analytics', val: 0.95 },
-            { label: 'ML / AI', val: 0.6 }
+            { label: 'Gaming/Betting', val: 0.95 },
+            { label: 'FinServ & Banking', val: 0.9 },
+            { label: 'Insurance', val: 0.85 },
+            { label: 'Tech / SaaS', val: 0.9 },
+            { label: 'Retail/E-Comm', val: 0.8 }
         ];
 
         const sides = data.length;
